@@ -1,0 +1,41 @@
+@import "./variables.scss";
+
+.project-root {
+  padding: 5px;
+  max-width: 900px;
+  .project-header {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    > div {
+      margin: 10px;
+    }
+    .live-app {
+      color: $primary-color;
+      svg {
+        fill: $primary-color;
+      }
+    }
+  }
+  .description {
+    max-width: 75%;
+    background-color: #232323;
+    color: whitesmoke;
+    padding: 5px;
+    margin: 5px auto;
+  }
+}
+
+.project-list-root {
+  padding: 10px;
+  img {
+    max-width: 150px;
+    max-height: 50px;
+  }
+  .project-card {
+    > div {
+      padding: 8px;
+    }
+  }
+}

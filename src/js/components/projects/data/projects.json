@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Weiser Memorial Hospital",
+    "url": "https://weisermemorialhospital.org",
+    "repo": "https://github.com/wmhospital/weisermemorialhospital.org",
+    "backgroundImage": "https://weisermemorialhospital.org/static/media/wmhlogoweb.6c5be2c3.svg",
+    "description": "This is the description of the project. Might tell a little bit about what I did to create the final product",
+    "content": "# This is the title \n And now This is the description of the project. Might tell a little bit about what I did to create the final product. \n This is the description of the project. Might tell a little bit about what I did to create the final product",
+    "coreDeps": [
+        "react.js",
+        "@material-ui",
+        "react-redux"
+    ]
+  },
+  {
+    "title": "Family Medical Center",
+    "repo": "https://github.com/wmhospital/familymedicalcenter",
+    "backgroundImage": "https://weisermemorialhospital.org/static/media/FMC_logo.a61b021a.svg",
+    "description": "This is the description of the project. Might tell a little bit about what I did to create the final product",
+    "coreDeps": [
+        "react.js",
+        "@material-ui",
+        "react-redux"
+    ]
+  },
+  {
+    "title": "Haun Packing",
+    "url": "https://haunpacking.com",
+    "backgroundImage": "https://haunpacking.com/assets/images/onion-dark.svg",
+    "description": "This is the description of the project. Might tell a little bit about what I did to create the final product"
+  }
+]
