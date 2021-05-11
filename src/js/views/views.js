@@ -16,6 +16,7 @@ import {
   Contacts,
   LocalLibrary,
 } from "@material-ui/icons";
+import Contact from "../components/contact/contact";
 
 export const viewBackgrounds = {
   blog:
@@ -41,9 +42,9 @@ function View({ title, children, opened, backgroundImage, ...rest }) {
       id={title.toLowerCase()}
       style={{
         backgroundImage: bg
-          ? `url(${bg})`
+          ? `linear-gradient(to bottom, rgba(109, 26, 67, 0.2), rgba(55, 212, 55, 0.3)), url(${bg})`
           : backgroundImage
-          ? `url(${backgroundImage})`
+          ? `linear-gradient(to bottom, rgba(55, 212, 55, 0.19), rgba(109, 26, 67, 0.2)), url(${backgroundImage})`
           : "white",
       }}
     >
@@ -72,14 +73,14 @@ function View({ title, children, opened, backgroundImage, ...rest }) {
   );
 }
 
-const ProjectView = ({ opened, ...rest }) => (
+const ProjectView = ({ match, opened }) => (
   <View
     title={projects.toUpperCase()}
     key={projects}
     opened={opened}
     backgroundImage={viewBackgrounds.projects}
   >
-    <Projects />
+    <Projects projectProps={match} />
   </View>
 );
 
@@ -114,7 +115,7 @@ const ContactView = ({ opened }) => (
     backgroundImage={viewBackgrounds.contact}
     opened={opened}
   >
-    <h1>Contact</h1>
+    <Contact />
   </View>
 );
 

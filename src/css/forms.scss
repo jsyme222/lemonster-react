@@ -1,0 +1,19 @@
+@import "./variables.scss";
+
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  .MuiFormControl-root {
+    margin: 10px auto;
+    width: 50ch;
+    .MuiInputBase-inputMultiline {
+      height: unset;
+    }
+  }
+  .form-actions {
+    margin: 20px auto;
+  }
+}

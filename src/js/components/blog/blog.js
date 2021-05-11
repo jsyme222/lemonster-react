@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 import Post from "./post";
 import { background, blogPosts, viewingPost } from "../../../data/Atoms";
-
-import "../../../css/blog.scss";
 import { HashLink } from "react-router-hash-link";
 import { blogPath } from "../../routes";
-import slugify from "slugify";
+import { slugTitle } from "../../utils/utils";
+
+import "../../../css/blog.scss";
 
 export default function Blog({ viewPostProps, postProps, ...rest }) {
   const [posts, setPosts] = useAtom(blogPosts);
@@ -34,9 +34,7 @@ export default function Blog({ viewPostProps, postProps, ...rest }) {
       }
     } else {
       let pJSON = require("./data/posts.json");
-      let p = pJSON.find(
-        (i) => slugify(i.title, "-") === viewPostProps.postTitle
-      );
+      let p = pJSON.find((i) => slugTitle(i.title) === viewPostProps.postTitle);
       setViewPost(p);
     }
     return () => setViewPost();
@@ -52,7 +50,7 @@ export default function Blog({ viewPostProps, postProps, ...rest }) {
               className="post-link"
               onClick={() => selectPost(p)}
               component={HashLink}
-              to={blogPath + "/" + slugify(p.title, "-")}
+              to={blogPath + "/" + slugTitle(p.title)}
             >
               <div>
                 <span>
@@ -75,7 +73,7 @@ export default function Blog({ viewPostProps, postProps, ...rest }) {
                   <Icon>
                     <DateRange />
                   </Icon>
-                  <p>{p.createdOn}</p>
+                  <p className="dark-content">{p.createdOn}</p>
                 </span>
               </div>
             </ButtonBase>

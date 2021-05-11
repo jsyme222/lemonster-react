@@ -1,0 +1,46 @@
+@import "./variables.scss";
+
+.markdown {
+  padding: 20px;
+  text-align: left;
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+  }
+  blockquote {
+    background-color: rgba(grey, 0.5);
+    padding: 5px;
+    border-radius: 10px;
+    border-left: 5px solid $primary-color;
+  }
+  ul {
+    list-style-type: disclosure-closed;
+    &:nth-of-type(1) {
+      list-style-type: disc;
+    }
+    &:nth-of-type(2) {
+      list-style-type: disclosure-open;
+    }
+  }
+  code {
+    background-color: grey;
+  }
+  a {
+    font-weight: 300;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+  }
+  td {
+    border: 2px solid rgba($primary-color, 0.5);
+    padding: 10px;
+  }
+}

@@ -26,18 +26,23 @@
       }
     }
   }
-  .post {
-    max-width: 900px;
-    padding: 1rem;
-    .header {
-      > span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .tag {
-          margin-left: 5px;
-        }
+}
+
+.post {
+  max-width: 900px;
+  padding: 1rem;
+  margin: 0 auto;
+  .header {
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .tag {
+        margin-left: 5px;
       }
     }
+  }
+  &.sample {
+    margin-top: 6rem;
   }
 }

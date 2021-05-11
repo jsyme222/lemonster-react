@@ -2,13 +2,12 @@ import { Chip, Icon } from "@material-ui/core";
 import { LocalOffer } from "@material-ui/icons";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import slugify from "slugify";
 
 import { background, blogPosts, viewingPost } from "../../../data/Atoms";
 import { blogPath } from "../../routes";
+import { slugTitle } from "../../utils/utils";
 import CustomToolbar from "../appbar/toolbar";
+import { MarkdownContent } from "../markdown-components/markdown-rendering";
 
 export default function Post({ post, ...rest }) {
   const [allPosts, setAllPosts] = useAtom(blogPosts);
@@ -39,7 +38,7 @@ export default function Post({ post, ...rest }) {
   }, [setBg]);
 
   return (
-    <div className="post" id={slugify(title, "-")}>
+    <div className="post" id={slugTitle(title)}>
       <CustomToolbar actions={toolbarActions} />
       <div className="header">
         <span>
@@ -51,10 +50,10 @@ export default function Post({ post, ...rest }) {
           ))}
         </span>
         <b>
-          <p>{createdOn}</p>
+          <p className="dark-content">{createdOn}</p>
         </b>
       </div>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <MarkdownContent>{content}</MarkdownContent>
     </div>
   );
 }

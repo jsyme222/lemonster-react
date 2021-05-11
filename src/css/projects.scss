@@ -18,12 +18,18 @@
       }
     }
   }
-  .description {
-    max-width: 75%;
-    background-color: #232323;
-    color: whitesmoke;
-    padding: 5px;
-    margin: 5px auto;
+  .info-boxes {
+    max-width: 90%;
+    margin: 10px auto;
+  }
+  .content {
+    .description {
+      max-width: 75%;
+      background-color: #232323;
+      color: whitesmoke;
+      padding: 5px;
+      margin: 5px auto;
+    }
   }
 }
 
