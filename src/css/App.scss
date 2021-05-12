@@ -28,15 +28,11 @@ body {
   color: red !important;
 }
 
-.MuiChip-root {
-  margin-left: 5px;
-  background: radial-gradient(rgba($primary-color, 0.5) 50%, #232323);
-}
-
 .dark-content {
   color: whitesmoke;
   background-color: #232323;
-  padding: 2.5px;
+  padding: 0.15em;
+  width: fit-content;
   a {
     color: $primary-color;
   }
@@ -49,4 +45,11 @@ body {
       box-shadow: inset 0px -1px 5px 0px $secondary-color;
     }
   }
+}
+
+.errors {
+  color: rgb(128, 46, 46);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

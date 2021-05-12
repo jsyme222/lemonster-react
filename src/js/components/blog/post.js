@@ -1,4 +1,4 @@
-import { Chip, Icon } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
 import { LocalOffer } from "@material-ui/icons";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
@@ -43,17 +43,18 @@ export default function Post({ post, ...rest }) {
       <CustomToolbar actions={toolbarActions} />
       <div className="header">
         <span>
-          <Icon>
+          <Icon color="secondary">
             <LocalOffer />
           </Icon>
           {post.tags.map((p, i) => (
-            <Chip key={i} className="tag" label={p.title} />
+            <span key={i} className="tag">
+              {p.title}
+            </span>
           ))}
         </span>
         <b>
-          <p className="dark-content">{post.created_on.slice(0, 10)}</p>
+          <p className="dark-content">{makeDate(post.created_on)}</p>
         </b>
-        {console.log(makeDate(post.created_on))}
       </div>
       <MarkdownContent>{post.content}</MarkdownContent>
     </div>

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, Chip } from "@material-ui/core";
+import { Button, ButtonGroup, Grid } from "@material-ui/core";
 import { GitHub, EmojiObjects, Close } from "@material-ui/icons";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ export default function Project({ project, ...rest }) {
   }, [setBg]);
 
   return (
-    <div className="project-root">
+    <div className="project-list opened" {...rest}>
       <CustomToolbar actions={toolbarActions} />
       <div className="project-header">
         <h1>{project.title}</h1>
@@ -59,25 +59,20 @@ export default function Project({ project, ...rest }) {
           )}
         </ButtonGroup>
       </div>
-      <Grid container className="info-boxes">
-        {project["core_deps"] && (
-          <Grid item>
-            <h5 style={{ marginBottom: 5, textDecoration: "underline" }}>
-              Core Technologies
-            </h5>
-            {project["core_deps"].map((d) => (
-              <Chip
-                key={d.title}
-                style={{ marginLeft: 5 }}
-                label={d.title}
-                color="secondary"
-              />
-            ))}
-          </Grid>
-        )}
-      </Grid>
+      <Grid container className="info-boxes"></Grid>
       <div className="content">
-        <h4 className="description">{project.description}</h4>
+        <div className="dark-content">
+          <h4 className="description">{project.description}</h4>
+          <h5 style={{ marginBottom: 5, textDecoration: "underline" }}>
+            Core Technologies
+          </h5>
+          {project.core_deps.map((d) => (
+            <span className="tech" key={d.title} style={{ marginLeft: 5 }}>
+              {d.title}
+            </span>
+          ))}
+          <br />
+        </div>
         {project.content && (
           <MarkdownContent>{project.content}</MarkdownContent>
         )}

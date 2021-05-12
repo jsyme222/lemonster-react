@@ -18,16 +18,17 @@ export function slugTitle(str) {
   return str;
 }
 
-export function handle(endpoint, options = { method: "GET", header: {} }) {
+export function handle(endpoint, options) {
   let opts = {
-    method: options.method,
-    mode: "cors",
-    header: {
-      ...options.header,
-      "Content-Type": "application/json",
+    method: "GET",
+    headers: {
+      Accept: "application/json, text/plain",
+      "Content-Type": "application/json;charset=utf-8",
     },
+    ...options,
   };
   let url = process.env.REACT_APP_API + endpoint;
+  console.log(opts);
   return fetch(url, opts)
     .then((d) => {
       if (d.status === 200) {
@@ -37,6 +38,7 @@ export function handle(endpoint, options = { method: "GET", header: {} }) {
     })
     .catch((error) => {
       console.error(error);
+      return { error: error };
     });
 }
 
@@ -51,9 +53,9 @@ export function makeDate(dateString) {
     "07": "July",
     "08": "August",
     "09": "September",
-    "10": "October",
-    "11": "November",
-    "12": "December",
+    10: "October",
+    11: "November",
+    12: "December",
   };
   let year = dateString.slice(0, 4);
   let month = dateString.slice(5, 7);

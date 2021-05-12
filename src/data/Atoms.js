@@ -8,17 +8,24 @@ export const blogPosts = atom();
 export const viewingPost = atom();
 export const background = atom(null);
 
+export const viewBackgroundAtom = atom({
+  blog: null,
+  projects: null,
+  blockchain: null,
+  contact: null,
+});
+
 export const contactFormData = atom({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    website: "",
-    questions: " ",
-    services: {
-        website: false,
-        businessApplication: false,
-        maintenance: false,
-        other: false,
-    }
-})
+  name: "",
+  email: "",
+  phone: "",
+  company: "",
+  website: "",
+  questions: " ",
+  services: {
+    website: false,
+    businessApplication: false,
+    maintenance: false,
+    other: false,
+  },
+});

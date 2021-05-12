@@ -1,10 +1,14 @@
 @import "./variables.scss";
 
 .blog-root {
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .post-list {
-    max-width: 500px;
-    height: 550px;
-    padding: 5px;
+    max-width: 50em;
+    height: 32em;
+    padding: 0.2em;
   }
   .post-link {
     .tags {
@@ -16,6 +20,9 @@
         width: 15px;
         height: 15px;
         margin: 0;
+      }
+      span {
+        color: $primary-color;
       }
     }
     &:hover {
@@ -33,8 +40,14 @@
       align-items: center;
       justify-content: center;
       .tag {
+        &:not(:last-of-type):after {
+          content: ",";
+        }
         margin-left: 5px;
       }
+    }
+    .dark-content {
+      margin: 0.2em auto;
     }
   }
   &.sample {

@@ -18,7 +18,7 @@ import {
 } from "@material-ui/icons";
 import Contact from "../components/contact/contact";
 
-export const viewBackgrounds = {
+const viewBackgrounds = {
   blog: "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
   contact:
     "https://images.unsplash.com/photo-1614792221813-49ba4b35cc3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2024&q=80",
@@ -51,7 +51,7 @@ function View({ title, children, opened, backgroundImage, ...rest }) {
       style={{
         backgroundImage: viewBackground
           ? `linear-gradient(to bottom, rgba(109, 26, 67, 0.2), rgba(55, 212, 55, 0.3)), url(${viewBackground})`
-          : "white",
+          : "initial",
       }}
     >
       {post && post.background && (
@@ -104,7 +104,7 @@ const BlogView = ({ match, opened, bgImg }) => {
 const BlockchainView = ({ opened, bgImg }) => (
   <View
     title={blockchain.toUpperCase()}
-    backgroundImage={bgImg}
+    backgroundImage={bgImg || viewBackgrounds.blockchain}
     opened={opened}
   >
     <h1>BlockChain</h1>
@@ -112,7 +112,11 @@ const BlockchainView = ({ opened, bgImg }) => (
 );
 
 const ContactView = ({ opened, bgImg }) => (
-  <View title={contact.toUpperCase()} backgroundImage={bgImg} opened={opened}>
+  <View
+    title={contact.toUpperCase()}
+    backgroundImage={bgImg || viewBackgrounds.contact}
+    opened={opened}
+  >
     <Contact />
   </View>
 );

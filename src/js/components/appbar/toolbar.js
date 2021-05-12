@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 
 import { background } from "../../../data/Atoms";
-import { viewBackgrounds } from "../../views/views";
+// import { viewBackgrounds } from "../../views/views";
 
 import "../../../css/app-bar.scss";
 import { HashLink } from "react-router-hash-link";
@@ -15,7 +15,7 @@ export default function CustomToolbar({ actions, ...rest }) {
   const [bg, setBg] = useAtom(background);
 
   const goBack = () => {
-    setBg(viewBackgrounds.blog);
+    // setBg(viewBackgrounds.blog);
     actions.back();
   };
 

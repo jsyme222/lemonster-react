@@ -1,9 +1,22 @@
 @import "./variables.scss";
 
-.project-root {
-  padding: 5px;
-  max-width: 900px;
-  width: auto;
+.project-list {
+  max-width: 50em;
+  height: 35em;
+  padding: 0.2em;
+  &.opened {
+    height: auto;
+  }
+  .project-link {
+    img {
+      height: auto;
+      width: 100%;
+      margin-top: 5%;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
   .project-header {
     display: flex;
     flex-flow: column;
@@ -24,13 +37,29 @@
     margin: 10px auto;
   }
   .content {
+    overflow: auto;
+    .dark-content {
+      width: unset;
+    }
     .description {
-      max-width: 75%;
+      // max-width: 75%;
       background-color: #232323;
       color: whitesmoke;
       padding: 5px;
       margin: 5px auto;
     }
+  }
+}
+
+.techs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tech {
+  margin-left: 0.25em;
+  &:not(:last-of-type):after {
+    content: ",";
   }
 }
 
