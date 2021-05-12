@@ -5,18 +5,16 @@ import { HashLink } from "react-router-hash-link";
 
 import { projectsPath } from "../../routes";
 import Project from "./project";
-import { apiUrl, background } from "../../../data/Atoms";
+import { background, projectListAtom } from "../../../data/Atoms";
+import { handle, slugTitle } from "../../utils/utils";
 
 import "../../../css/projects.scss";
-import { slugTitle } from "../../utils/utils";
 
 export default function Projects({ projectProps }) {
-  const projects = require("./data/projects.json");
+  const [projects, setProjects] = useAtom(projectListAtom);
   const [selectedProject, setSelectedProject] = useState(null);
   // eslint-disable-next-line
   const [bg, setBg] = useAtom(background);
-  // eslint-disable-next-line
-  const [url, setUrl] = useAtom(apiUrl);
 
   const selectProject = (p) => {
     setBg(p.backgroundImage);
@@ -24,14 +22,19 @@ export default function Projects({ projectProps }) {
   };
 
   useEffect(() => {
+    if (!projects) {
+      handle("projects/").then((pList) => setProjects(pList));
+    }
+  }, [projects, setProjects]);
+
+  useEffect(() => {
     let isSubscribed = true;
-    if (isSubscribed && projectProps) {
+    if (isSubscribed && projectProps && projects) {
       let p = projects.find(
         (proj) => slugTitle(proj.title) === projectProps.projectTitle
       );
       selectProject(p);
     }
-    console.log(url);
     return () => (isSubscribed = false);
     // eslint-disable-next-line
   }, [projectProps, projects]);
@@ -39,7 +42,7 @@ export default function Projects({ projectProps }) {
   const projectList = Array.isArray(projects) ? (
     <Grid
       container
-      spacing={2}
+      spacing={1}
       wrap="wrap"
       justify="center"
       className="project-list-root"
@@ -49,7 +52,6 @@ export default function Projects({ projectProps }) {
           <ButtonBase
             component={HashLink}
             to={projectsPath + "/" + slugTitle(p.title)}
-            // onClick={() => selectProject(p)}
             className="secondary-hover project-card"
           >
             <Paper>

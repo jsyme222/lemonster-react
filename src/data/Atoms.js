@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 
-export const apiUrl = atom("192.168.0.13:8000/")
+export const apiUrl = atom(process.env.REACT_APP_API);
+export const projectListAtom = atom();
 export const menuAtom = atom(false);
 export const activeView = atom();
 export const blogPosts = atom();

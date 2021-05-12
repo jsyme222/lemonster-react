@@ -60,16 +60,16 @@ export default function Project({ project, ...rest }) {
         </ButtonGroup>
       </div>
       <Grid container className="info-boxes">
-        {project.coreDeps && (
+        {project["core_deps"] && (
           <Grid item>
             <h5 style={{ marginBottom: 5, textDecoration: "underline" }}>
               Core Technologies
             </h5>
-            {project.coreDeps.map((d) => (
+            {project["core_deps"].map((d) => (
               <Chip
-                key={d}
+                key={d.title}
                 style={{ marginLeft: 5 }}
-                label={d}
+                label={d.title}
                 color="secondary"
               />
             ))}

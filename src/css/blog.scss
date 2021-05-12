@@ -1,35 +1,30 @@
 @import "./variables.scss";
 
 .blog-root {
-  position: relative;
-  max-width: 900px;
-  .post-link {
+  .post-list {
+    max-width: 500px;
+    height: 550px;
     padding: 5px;
-    margin: 1rem;
-    @media (max-width: 767px) {
-      max-width: 125px;
-    }
-    span {
+  }
+  .post-link {
+    .tags {
+      height: 9px;
       display: flex;
+      justify-content: space-around;
       align-items: center;
-      text-align: left;
-      &:not:first-child() {
-        font-size: 0.75rem;
-        margin: {
-          top: -15px;
-          left: 10px;
-        }
-        svg {
-          width: 12.5px;
-          height: 12.5px;
-        }
+      svg {
+        width: 15px;
+        height: 15px;
+        margin: 0;
       }
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 }
 
 .post {
-  max-width: 900px;
   padding: 1rem;
   margin: 0 auto;
   .header {

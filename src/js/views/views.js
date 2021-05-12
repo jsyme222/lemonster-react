@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { ButtonBase, Icon, Paper } from "@material-ui/core";
 import { useAtom } from "jotai";
 
@@ -19,8 +19,7 @@ import {
 import Contact from "../components/contact/contact";
 
 export const viewBackgrounds = {
-  blog:
-    "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+  blog: "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
   contact:
     "https://images.unsplash.com/photo-1614792221813-49ba4b35cc3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2024&q=80",
   blockchain:
@@ -30,10 +29,19 @@ export const viewBackgrounds = {
 };
 
 function View({ title, children, opened, backgroundImage, ...rest }) {
-  // eslint-disable-next-line
   const [bg, setBg] = useAtom(background);
   // eslint-disable-next-line
   const [post, setViewingPost] = useAtom(viewingPost);
+  const [viewBackground, setViewBackground] = useState();
+
+  useEffect(() => {
+    if (bg) {
+      setViewBackground(bg);
+    } else {
+      setViewBackground(backgroundImage);
+    }
+    return () => setViewBackground(null);
+  }, [backgroundImage, bg, setBg]);
 
   return (
     <section
@@ -41,10 +49,8 @@ function View({ title, children, opened, backgroundImage, ...rest }) {
       {...rest}
       id={title.toLowerCase()}
       style={{
-        backgroundImage: bg
-          ? `linear-gradient(to bottom, rgba(109, 26, 67, 0.2), rgba(55, 212, 55, 0.3)), url(${bg})`
-          : backgroundImage
-          ? `linear-gradient(to bottom, rgba(55, 212, 55, 0.19), rgba(109, 26, 67, 0.2)), url(${backgroundImage})`
+        backgroundImage: viewBackground
+          ? `linear-gradient(to bottom, rgba(109, 26, 67, 0.2), rgba(55, 212, 55, 0.3)), url(${viewBackground})`
           : "white",
       }}
     >
@@ -73,48 +79,40 @@ function View({ title, children, opened, backgroundImage, ...rest }) {
   );
 }
 
-const ProjectView = ({ match, opened }) => (
+const ProjectView = ({ match, opened, bgImg }) => (
   <View
     title={projects.toUpperCase()}
-    key={projects}
     opened={opened}
-    backgroundImage={viewBackgrounds.projects}
+    backgroundImage={bgImg || viewBackgrounds.projects}
   >
     <Projects projectProps={match} />
   </View>
 );
 
-const BlogView = ({ match, opened }) => {
+const BlogView = ({ match, opened, bgImg }) => {
   return (
     <View
       title={blog.toUpperCase()}
-      key={blog}
       opened={opened}
-      backgroundImage={viewBackgrounds.blog}
+      backgroundImage={bgImg || viewBackgrounds.blog}
     >
       <Blog viewPostProps={match} />
     </View>
   );
 };
 
-const BlockchainView = ({ opened }) => (
+const BlockchainView = ({ opened, bgImg }) => (
   <View
     title={blockchain.toUpperCase()}
-    key={blockchain}
-    backgroundImage={viewBackgrounds.blockchain}
+    backgroundImage={bgImg}
     opened={opened}
   >
     <h1>BlockChain</h1>
   </View>
 );
 
-const ContactView = ({ opened }) => (
-  <View
-    title={contact.toUpperCase()}
-    key={blockchain}
-    backgroundImage={viewBackgrounds.contact}
-    opened={opened}
-  >
+const ContactView = ({ opened, bgImg }) => (
+  <View title={contact.toUpperCase()} backgroundImage={bgImg} opened={opened}>
     <Contact />
   </View>
 );
@@ -129,8 +127,10 @@ export const views = {
 export default function Views({ ...rest }) {
   return (
     <div className="views" {...rest}>
-      {Object.values(views).map((v, i) => (
-        <Fragment key={i}>{v[0]({ opened: false })}</Fragment>
+      {Object.keys(views).map((k, i) => (
+        <Fragment key={i}>
+          {views[k][0]({ opened: false, bgImg: viewBackgrounds[k] })}
+        </Fragment>
       ))}
     </div>
   );

@@ -1,29 +1,21 @@
 @import "./variables.scss";
 
 .view-root {
-  min-height: 100vh;
-  align-items: center;
-  background: no-repeat fixed center / auto;
-  bottom: 0;
   display: flex;
-  justify-content: center;
   flex-flow: column;
-  padding: {
-    left: 1rem;
-    right: 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  background: no-repeat fixed center / auto;
+  @media (max-width: 767px) {
+    background-size: cover;
+    min-height: 100vh;
+    padding: 0;
   }
-  max-width: 100vw;
-  transition: 1s ease all;
   &.opened {
+    min-height: 100vh;
     &.post {
       background-size: cover;
-      @media (max-width: 767px) {
-        // max-height: calc(100vh - 80px);
-        margin: {
-          top: 80px;
-          bottom: 80px;
-        }
-      }
     }
   }
   .up-arrow {
@@ -40,7 +32,7 @@
     background-color: rgba(255, 255, 255, 0.95) !important;
     margin: {
       top: 6rem;
-      bottom: 10rem;
+      bottom: 3rem;
     }
     .unopened-view {
       padding: 1rem;

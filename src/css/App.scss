@@ -2,7 +2,6 @@
 @import "./variables.scss";
 
 body {
-  height: 100%;
   margin: 0;
 }
 
@@ -14,7 +13,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-weight: 300;
   text-align: center;
-  // min-height: 200vh;
   h1 {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;

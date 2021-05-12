@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { background, blogPosts, viewingPost } from "../../../data/Atoms";
 import { blogPath } from "../../routes";
-import { slugTitle } from "../../utils/utils";
+import { makeDate, slugTitle } from "../../utils/utils";
 import CustomToolbar from "../appbar/toolbar";
 import { MarkdownContent } from "../markdown-components/markdown-rendering";
 
@@ -14,7 +14,6 @@ export default function Post({ post, ...rest }) {
   const [viewPost, setViewPost] = useAtom(viewingPost);
   // eslint-disable-next-line
   const [bg, setBg] = useAtom(background);
-  const { title, createdOn, tags, content } = post;
 
   const deletePost = () => {
     setAllPosts(allPosts.filter((p) => p !== viewPost));
@@ -27,6 +26,7 @@ export default function Post({ post, ...rest }) {
       className: "danger",
     },
   };
+
   const toolbarActions = {
     back: { link: blogPath + "#" },
     backTitle: "Posts",
@@ -34,26 +34,28 @@ export default function Post({ post, ...rest }) {
   };
 
   useEffect(() => {
+    post && post.background && setBg(post.background);
     return () => setBg(null);
-  }, [setBg]);
+  }, [post.background, setBg, post]);
 
   return (
-    <div className="post" id={slugTitle(title)}>
+    <div className="post" id={slugTitle(post.title)}>
       <CustomToolbar actions={toolbarActions} />
       <div className="header">
         <span>
           <Icon>
             <LocalOffer />
           </Icon>
-          {tags.map((p, i) => (
-            <Chip key={i} className="tag" label={p} />
+          {post.tags.map((p, i) => (
+            <Chip key={i} className="tag" label={p.title} />
           ))}
         </span>
         <b>
-          <p className="dark-content">{createdOn}</p>
+          <p className="dark-content">{post.created_on.slice(0, 10)}</p>
         </b>
+        {console.log(makeDate(post.created_on))}
       </div>
-      <MarkdownContent>{content}</MarkdownContent>
+      <MarkdownContent>{post.content}</MarkdownContent>
     </div>
   );
 }

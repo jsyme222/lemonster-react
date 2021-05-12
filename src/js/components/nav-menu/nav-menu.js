@@ -6,7 +6,6 @@ import { views } from "../../views/views";
 import { homePath, paths } from "../../routes";
 import { HashLink } from "react-router-hash-link";
 import { Home } from "@material-ui/icons";
-import { Fragment } from "react";
 
 export default function NavMenu({ onClose, ...rest }) {
   // eslint-disable-next-line

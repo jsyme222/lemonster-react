@@ -114,8 +114,8 @@ export function ContactForm() {
                 onChange={() =>
                   setDetail("services", {
                     ...contactDetails.services,
-                    businessApplication: !contactDetails.services
-                      .businessApplication,
+                    businessApplication:
+                      !contactDetails.services.businessApplication,
                   })
                 }
               />
