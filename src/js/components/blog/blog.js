@@ -1,10 +1,13 @@
 import {
-  Button,
+  FormControl,
   GridList,
   GridListTile,
   GridListTileBar,
   Icon,
+  InputLabel,
   ListSubheader,
+  MenuItem,
+  Select,
 } from "@material-ui/core";
 import { Label } from "@material-ui/icons";
 import { useAtom } from "jotai";
@@ -35,7 +38,9 @@ export default function Blog({ viewPostProps, ...rest }) {
   };
 
   const setFilter = (term) => {
-    filterPosts(term);
+    term !== "all posts"
+      ? filterPosts(term)
+      : setFilterState({ title: "all posts" });
   };
 
   useEffect(() => {
@@ -75,27 +80,28 @@ export default function Blog({ viewPostProps, ...rest }) {
       {!viewPost ? (
         <Fragment>
           <div className="filters">
-            <Button
-              key={"all posts"}
-              className="tag-selector"
-              color={filter.title === "all posts" ? "secondary" : "primary"}
-              onClick={() => setFilterState({ title: "all posts" })}
-            >
-              All Posts
-            </Button>
-            {Array.isArray(tags) &&
-              tags.map((t) => (
-                <Button
-                  key={t.title}
-                  className="tag-selector"
-                  color={filter.title === t.title ? "secondary" : "primary"}
-                  onClick={() => setFilter(t.title)}
-                >
-                  {t.title}
-                </Button>
-              ))}
+            <FormControl variant="outlined" className="">
+              <InputLabel id="filters">Topics</InputLabel>
+              <Select
+                labelId="filters-selector"
+                id="filters-selector"
+                value={filter.title}
+                onChange={(e) => setFilter(e.target.value)}
+                label="Topics"
+              >
+                <MenuItem value="all posts">
+                  <em>ALL</em>
+                </MenuItem>
+                {Array.isArray(tags) &&
+                  tags.map((t) => (
+                    <MenuItem key={t.title} value={t.title}>
+                      {t.title.toUpperCase()}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </div>
-          <GridList cellHeight={220} spacing={2} className="post-list">
+          <GridList cellHeight={200} spacing={2} className="post-list">
             <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
               <ListSubheader component="div">
                 {filter.title.toUpperCase()}

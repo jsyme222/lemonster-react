@@ -9,13 +9,17 @@
   background: no-repeat fixed center / auto;
   @media (max-width: 767px) {
     background-size: cover;
-    // min-height: 100vh;
+    min-height: calc( 100vh - 50px );
+    background-attachment: scroll;
     padding: 0.1em;
     padding-top: 3em;
   }
   &.opened {
     &.post {
       background-size: cover;
+      @media (max-width: 767px) {
+        background-attachment: fixed;
+      }
     }
   }
   .up-arrow {

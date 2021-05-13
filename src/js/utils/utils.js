@@ -28,7 +28,7 @@ export function handle(endpoint, options) {
     ...options,
   };
   let url = process.env.REACT_APP_API + endpoint;
-  console.log(opts);
+  // console.log(opts);
   return fetch(url, opts)
     .then((d) => {
       if (d.status === 200) {
@@ -62,4 +62,15 @@ export function makeDate(dateString) {
   let day = dateString.slice(8, 10);
   let date = `${months[month]} ${day}, ${year}`;
   return date;
+}
+
+export function parseURL(path) {
+  let proto = "";
+  if (!path.startsWith("http")) {
+    proto = process.env.REACT_APP_API
+  }
+  if (path.startsWith("/")){
+    proto = proto.slice(0, -1)
+  }
+  return proto + path
 }

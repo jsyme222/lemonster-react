@@ -3,12 +3,17 @@
 .blog-root {
   .filters {
     display: flex;
-    flex-wrap: wrap;
+    margin: {
+      top: -3.5em;
+      left: 0.75em;
+      bottom: 0.75em;
+    }
   }
   .post-list {
     max-width: 50em;
-    height: 32em;
+    min-width: 20em;
     padding: 0.2em;
+    height: 35em;
   }
   .post-link {
     .tags {

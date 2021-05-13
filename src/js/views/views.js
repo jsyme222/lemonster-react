@@ -107,7 +107,7 @@ const BlockchainView = ({ opened, bgImg }) => (
     backgroundImage={bgImg || viewBackgrounds.blockchain}
     opened={opened}
   >
-    <h1>BlockChain</h1>
+    <h1>COMING SOON</h1>
   </View>
 );
 

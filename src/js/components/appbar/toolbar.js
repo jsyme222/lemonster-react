@@ -15,7 +15,6 @@ export default function CustomToolbar({ actions, ...rest }) {
   const [bg, setBg] = useAtom(background);
 
   const goBack = () => {
-    // setBg(viewBackgrounds.blog);
     actions.back();
   };
 

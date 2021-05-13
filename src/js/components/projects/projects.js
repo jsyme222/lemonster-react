@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { projectsPath } from "../../routes";
 import Project from "./project";
 import { background, projectListAtom } from "../../../data/Atoms";
-import { handle, slugTitle } from "../../utils/utils";
+import { handle, parseURL, slugTitle } from "../../utils/utils";
 
 import "../../../css/projects.scss";
 import { useHistory } from "react-router";
@@ -24,7 +24,7 @@ export default function Projects({ projectProps }) {
   const [bg, setBg] = useAtom(background);
 
   const selectProject = (p) => {
-    setBg(p.backgroundImage);
+    setBg(parseURL(p.backgroundImage || p.backgroundImageUpload));
     setSelectedProject(p);
   };
 
@@ -46,36 +46,45 @@ export default function Projects({ projectProps }) {
     // eslint-disable-next-line
   }, [projectProps, projects]);
 
-  const projectList = Array.isArray(projects) ? (
+  const projectList = (
     <GridList cellHeight={220} spacing={2} className="project-list">
       <GridListTile key="Subheader" cols={2} style={{ height: "auto" }} />
-      {projects.map((p, i) => (
-        <GridListTile
-          key={i}
-          onClick={() => history.push(projectsPath + "/" + slugTitle(p.title))}
-          className="project-link"
-          style={{ padding: "0.2em" }}
-        >
-          {p.backgroundImage && <img src={p.backgroundImage} alt={p.title} />}
-          <GridListTileBar
-            title={p.title}
-            titlePosition="bottom"
-            subtitle={
-              <div className="techs">
-                <Icon color="primary">
-                  <Label />
-                </Icon>
-                {p.core_deps.map((t) => (
-                  <span className="tech">{t.title}</span>
-                ))}
-              </div>
+      {Array.isArray(projects) ? (
+        projects.map((p, i) => (
+          <GridListTile
+            key={i}
+            onClick={() =>
+              history.push(projectsPath + "/" + slugTitle(p.title))
             }
-          />
-        </GridListTile>
-      ))}
+            className="project-link"
+            style={{ padding: "0.2em" }}
+          >
+            {p.backgroundImage && <img src={p.backgroundImage} alt={p.title} />}
+            {p.backgroundImageUpload && !p.background && (
+              <img src={parseURL(p.backgroundImageUpload)} alt={p.title} />
+            )}
+            <GridListTileBar
+              title={p.title}
+              titlePosition="bottom"
+              subtitle={
+                <div className="techs">
+                  <Icon color="primary">
+                    <Label />
+                  </Icon>
+                  {p.core_deps.map((t) => (
+                    <span key={t.title} className="tech">
+                      {t.title}
+                    </span>
+                  ))}
+                </div>
+              }
+            />
+          </GridListTile>
+        ))
+      ) : (
+        <p>No Projects</p>
+      )}
     </GridList>
-  ) : (
-    <h2>No Projects</h2>
   );
 
   const project = <Project project={selectedProject} />;

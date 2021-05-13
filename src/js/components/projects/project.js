@@ -13,9 +13,9 @@ export default function Project({ project, ...rest }) {
   const [bg, setBg] = useAtom(background);
 
   const toolBarMenu = {
-    share: {
-      func: () => alert(`Share ${project.title | "Project"}`),
-    },
+    // share: {
+    //   func: () => alert(`Share ${project.title | "Project"}`),
+    // },
   };
   const toolbarActions = {
     back: { link: projectsPath + "#" },
@@ -32,11 +32,6 @@ export default function Project({ project, ...rest }) {
       <CustomToolbar actions={toolbarActions} />
       <div className="project-header">
         <h1>{project.title}</h1>
-        <img
-          src={project.backgroundImage}
-          alt={project.title}
-          style={{ maxWidth: "75%", maxHeight: 200 }}
-        />
         <ButtonGroup>
           {project.url ? (
             <Button

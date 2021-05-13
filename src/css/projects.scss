@@ -2,16 +2,26 @@
 
 .project-list {
   max-width: 50em;
+  min-width: 20em;
   height: 35em;
   padding: 0.2em;
   &.opened {
     height: auto;
   }
   .project-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    > div {
+      width: 100%;
+    }
     img {
       height: auto;
       width: 100%;
-      margin-top: 5%;
+      @media (max-width: 767px) {
+        margin-top: 18%;
+      }
     }
     &:hover {
       cursor: pointer;
@@ -60,18 +70,5 @@
   margin-left: 0.25em;
   &:not(:last-of-type):after {
     content: ",";
-  }
-}
-
-.project-list-root {
-  padding: 10px;
-  img {
-    max-width: 150px;
-    max-height: 50px;
-  }
-  .project-card {
-    > div {
-      padding: 8px;
-    }
   }
 }
