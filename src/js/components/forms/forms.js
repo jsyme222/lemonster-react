@@ -16,12 +16,18 @@ import { useAtom } from "jotai";
 import ReCAPTCHA from "react-google-recaptcha";
 
 import { contactFormData } from "../../../data/Atoms";
-import { handle } from "../../utils/utils";
+import { handle, validateEmail } from "../../utils/utils";
 
 import "../../../css/forms.scss";
 
 function CustomForm({ children, onSubmit, onCancel, errors, ...rest }) {
   const ref = useRef();
+
+  const submit = (e) => {
+    e.preventDefault();
+    onSubmit();
+    ref.current.execute();
+  };
 
   return (
     <form className={`form`} {...rest}>
@@ -40,16 +46,7 @@ function CustomForm({ children, onSubmit, onCancel, errors, ...rest }) {
         sitekey="6LdRVd0ZAAAAAIrA5qLBtiZ5Kk7IqnKg8g5wpjyn"
       />
       <ButtonGroup className="form-actions">
-        <Button
-          color="primary"
-          endIcon={<Send />}
-          onClick={
-            (() => {
-              onSubmit();
-              ref.current.execute();
-            }) || null
-          }
-        >
+        <Button color="primary" endIcon={<Send />} onClick={submit}>
           Send
         </Button>
         <Button color="secondary" endIcon={<Cancel />} onClick={onCancel}>
@@ -60,7 +57,7 @@ function CustomForm({ children, onSubmit, onCancel, errors, ...rest }) {
   );
 }
 export function ContactForm() {
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({ content: "" });
   const [submitted, setSubmitted] = useState(false);
   const [contactDetails, setContactDetails] = useAtom(contactFormData);
 
@@ -72,15 +69,46 @@ export function ContactForm() {
 
   const submitForm = () => {
     let data = contactDetails;
-    // console.log(data);
-    handle("contact/mail/", {
-      method: "POST",
-      body: JSON.stringify(data),
-    }).then((r) =>
-      r.error
-        ? setErrors({ content: `Error Sending Form: ${r.error}` })
-        : setSubmitted(true)
-    );
+    let email = () => {
+      if (data.email) {
+        return validateEmail(data.email);
+      } else {
+        return false;
+      }
+    };
+    let validEmail = email();
+    if (data.name !== "" && validEmail) {
+      let body = () => {
+        if (data.services) {
+          // Set services so api understands them
+          data.services_website = data.services.website;
+          data.services_business_application =
+            data.services.businessApplication;
+          data.services_maintenance = data.services.maintenance;
+          data.services_other = data.services.other;
+        }
+        return JSON.stringify(data);
+      };
+      handle("contact/mail/", {
+        method: "POST",
+        body: body(),
+      }).then((r) =>
+        r.error
+          ? setErrors({ content: `Error Sending Form: ${r.error}` })
+          : setSubmitted(true)
+      );
+    } else {
+      if (!data.name) {
+        setErrors({ content: "Name required" });
+      }
+      if (!data.email || !validEmail) {
+        if (!data.email) {
+          setErrors({ content: "Email required" });
+        } else {
+          setErrors({ content: "Email invalid" });
+        }
+      }
+    }
   };
 
   const onCancel = () => {
@@ -175,7 +203,7 @@ export function ContactForm() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={contactDetails.services.website}
+                    checked={contactDetails.services.website || false}
                     name={"website"}
                     onChange={() =>
                       setDetail("services", {
@@ -194,7 +222,9 @@ export function ContactForm() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={contactDetails.services.businessApplication}
+                    checked={
+                      contactDetails.services.businessApplication || false
+                    }
                     name={"business-application"}
                     onChange={() =>
                       setDetail("services", {
@@ -214,7 +244,7 @@ export function ContactForm() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={contactDetails.services.maintenance}
+                    checked={contactDetails.services.maintenance || false}
                     name={"maintenance"}
                     onChange={() =>
                       setDetail("services", {
@@ -233,7 +263,7 @@ export function ContactForm() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={contactDetails.services.other}
+                    checked={contactDetails.services.other || false}
                     name={"other"}
                     onChange={() =>
                       setDetail("services", {

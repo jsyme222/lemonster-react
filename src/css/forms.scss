@@ -2,12 +2,11 @@
 
 .form {
   max-width: 50em;
-  max-height: 75vh;
   margin: 0 auto;
   margin-bottom: 2em;
-  padding-bottom: 2em;
-  // overflow: auto;
   .form-fields {
+    max-height: 350px;
+    overflow: auto;
     display: flex;
     flex-flow: column;
     align-items: center;
