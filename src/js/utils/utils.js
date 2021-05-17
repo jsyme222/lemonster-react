@@ -1,4 +1,11 @@
-export function slugTitle(str) {
+  let API_URL;
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+    API_URL = process.env.REACT_APP_API_DEV;
+  } else {
+    API_URL = process.env.REACT_APP_API_PROD;
+  }
+  
+  export function slugTitle(str) {
   str = str.replace(/^\s+|\s+$/g, ""); // trim
   str = str.toLowerCase();
 
@@ -27,7 +34,7 @@ export function handle(endpoint, options) {
     },
     ...options,
   };
-  let url = process.env.REACT_APP_API + endpoint;
+  let url = API_URL + endpoint;
   // console.log(opts);
   return fetch(url, opts)
     .then((d) => {
@@ -67,15 +74,16 @@ export function makeDate(dateString) {
 export function parseURL(path) {
   let proto = "";
   if (!path.startsWith("http")) {
-    proto = process.env.REACT_APP_API
+    proto = API_URL;
   }
-  if (path.startsWith("/")){
-    proto = proto.slice(0, -1)
+  if (path.startsWith("/")) {
+    proto = proto.slice(0, -1);
   }
-  return proto + path
+  return proto + path;
 }
 
 export function validateEmail(email) {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
