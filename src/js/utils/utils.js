@@ -60,9 +60,9 @@ export function makeDate(dateString) {
     "07": "July",
     "08": "August",
     "09": "September",
-    10: "October",
-    11: "November",
-    12: "December",
+    "10": "October",
+    "11": "November",
+    "12": "December",
   };
   let year = dateString.slice(0, 4);
   let month = dateString.slice(5, 7);

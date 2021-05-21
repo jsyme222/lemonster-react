@@ -39,7 +39,7 @@ export default function Post({ post, ...rest }) {
   }, [post.background, setBg, post]);
 
   return (
-    <div className="post" id={slugTitle(post.title)}>
+    <div className="post" id={slugTitle(post.title)} {...rest}>
       <CustomToolbar actions={toolbarActions} />
       <div className="header">
         <span>

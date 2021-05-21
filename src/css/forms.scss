@@ -5,7 +5,10 @@
   margin: 0 auto;
   margin-bottom: 2em;
   .form-fields {
-    max-height: 350px;
+    max-height: 500px;
+    @media (max-width: 767px) {
+      max-height: 400px;
+    }
     overflow: auto;
     display: flex;
     flex-flow: column;
